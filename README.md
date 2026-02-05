@@ -8,31 +8,31 @@
 
 A real-time collaborative platform aimed at legal professionals to review, annotate, and manage contracts securely and efficiently.
 
-## 🌟 Key Features
+## Key Features
 
-### 🎨 Modern UI/UX
+### Modern UI/UX
 - **System-Wide Dark Mode**: Fully supported dark theme that respects system preferences.
 - **Responsive Design**: Optimized for desktop and tablets.
 - **Glassmorphism**: Modern, clean aesthetic with backdrop blurs and smooth transitions.
 
-### 📝 Contract Management
+### Contract Management
 - **Drag & Drop Upload**: Simply drag PDF files onto the dashboard to upload.
 - **Rename Contracts**: Easily rename documents directly from the dashboard.
 - **Version Control**: Track changes and restore previous versions of contracts.
 - **Search & Filter**: Quickly find contracts by title or status.
 
-### 🤝 Real-Time Collaboration
+### Real-Time Collaboration
 - **Live Cursors**: See where other users are looking in real-time.
 - **Annotations**: Highlight text, add comments, and draw on contracts.
 - **Threaded Comments**: Discuss specific clauses with threaded replies.
 - **Role-Based Sharing**: Invite members as Viewers, Commenters, or Editors.
 
-### 🔒 Security & Performance
+### Security & Performance
 - **Secure Authentication**: JWT-based auth with encrypted passwords.
 - **Granular Permissions**: Control exactly who can view, edit, or manage contracts.
 - **Optimized PDF Rendering**: Fast loading PDF viewer with virtualization.
 
-## 🛠 Tech Stack
+## Tech Stack
 
 **Frontend:**
 - **Framework**: React 18 + TypeScript + Vite
@@ -48,7 +48,7 @@ A real-time collaborative platform aimed at legal professionals to review, annot
 - **Storage**: MinIO (S3 compatible)
 - **Real-time**: Socket.io Server
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js 18+
@@ -116,7 +116,7 @@ npm run dev
 
 Access the application at **http://localhost:5173**
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 ├── client/
@@ -137,7 +137,7 @@ Access the application at **http://localhost:5173**
 └── docker-compose.yml     # Service Orchestration
 ```
 
-## 📝 API Endpoints
+## API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -148,6 +148,6 @@ Access the application at **http://localhost:5173**
 | PATCH | `/api/contracts/:id` | Rename contract |
 | POST | `/api/permissions/:id` | Share contract |
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
