@@ -1,0 +1,57 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+*.env
+
+# Debugging & Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+
+# OS Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Testing
+coverage/
+.nyc_output/
+
+# Prisma
+server/prisma/*.db
+server/prisma/*.db-journal
+
+# Docker & Infrastructure Data (Local)
+postgres_data/
+redis_data/
+minio_data/
+
+# TypeScript & Linting
+*.tsbuildinfo
+.eslintcache
+
+# Temporary Files
+tmp/
+temp/

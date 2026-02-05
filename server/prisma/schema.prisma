@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String         @id @default(cuid())
+  email        String         @unique
+  passwordHash String
+  name         String
+  color        String         @default("#3B82F6")
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  ownedContracts Contract[]     @relation("ContractOwner")
+  permissions    Permission[]
+  comments       Comment[]
+  notifications  Notification[]
+}
+
+model Contract {
+  id          String            @id @default(cuid())
+  title       String
+  s3Key       String
+  pageCount   Int               @default(1)
+  fileSize    Int               @default(0)
+  version     Int               @default(1)
+  ownerId     String
+  owner       User              @relation("ContractOwner", fields: [ownerId], references: [id])
+  permissions Permission[]
+  comments    Comment[]
+  versions    ContractVersion[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([ownerId])
+}
+
+model ContractVersion {
+  id          String   @id @default(cuid())
+  contractId  String
+  contract    Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  version     Int
+  s3Key       String
+  changeNote  String?
+  createdById String
+  createdAt   DateTime @default(now())
+
+  @@index([contractId])
+  @@unique([contractId, version])
+}
+
+model Permission {
+  id         String   @id @default(cuid())
+  contractId String
+  contract   Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role       Role     @default(VIEWER)
+  createdAt  DateTime @default(now())
+
+  @@unique([contractId, userId])
+  @@index([userId])
+  @@index([contractId])
+}
+
+model Comment {
+  id          String    @id @default(cuid())
+  contractId  String
+  contract    Contract  @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  content     String
+  highlightId String?
+  page        Int?
+  position    String?   // JSON string with x, y coordinates
+  parentId    String?
+  parent      Comment?  @relation("CommentThread", fields: [parentId], references: [id], onDelete: Cascade)
+  replies     Comment[] @relation("CommentThread")
+  resolved    Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([contractId])
+  @@index([highlightId])
+  @@index([parentId])
+}
+
+enum Role {
+  VIEWER
+  COMMENTER
+  EDITOR
+  ADMIN
+}
+
+model Notification {
+  id          String           @id @default(cuid())
+  userId      String
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        NotificationType
+  title       String
+  message     String
+  contractId  String?
+  commentId   String?
+  read        Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+
+  @@index([userId])
+  @@index([userId, read])
+}
+
+enum NotificationType {
+  COMMENT
+  REPLY
+  MENTION
+  SHARED
+  VERSION
+}
+
